@@ -1,0 +1,9 @@
+gunicorn
+django
+pillow
+django-crispy-forms
+
+django-environ 
+whitenoise
+dj-database-url
+requests
