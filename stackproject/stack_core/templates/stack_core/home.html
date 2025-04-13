@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Preguntas recientes</h2>
+{% for pregunta in preguntas %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ pregunta.titulo }}</h5>
+      <p class="card-text">{{ pregunta.descripcion|truncatewords:30 }}</p>
+    </div>
+  </div>
+{% empty %}
+  <p>No hay preguntas registradas.</p>
+{% endfor %}
+
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if preguntas.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ preguntas.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Anterior</a></li>
+    {% endif %}
+    <li class="page-item disabled"><a class="page-link">{{ preguntas.number }} / {{ preguntas.paginator.num_pages }}</a></li>
+    {% if preguntas.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ preguntas.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Siguiente</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}
