@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ pregunta.titulo }}</h2>
+<p>{{ pregunta.cuerpo }}</p>
+<hr>
+<h4>Responder</h4>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">Enviar respuesta</button>
+</form>
+
+<h4 class="mt-4">Respuestas:</h4>
+{% for respuesta in pregunta.respuestas.all %}
+  <div class="card mb-2">
+    <div class="card-body">
+      <p>{{ respuesta.cuerpo }}</p>
+      <small class="text-muted">Por {{ respuesta.autor.username }} el {{ respuesta.creada|date:"d M Y H:i" }}</small>
+    </div>
+  </div>
+{% empty %}
+  <p>No hay respuestas aún.</p>
+{% endfor %}
+{% endblock %}

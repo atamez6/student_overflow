@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Cambiar contraseña</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-warning">Actualizar</button>
-</form>
+<h2>Perfil</h2>
+<p>Nombre de usuario: <strong>{{ user.username }}</strong></p>
+<p>Correo electrónico: {{ user.email }}</p>
+<p><a href="{% url 'password_change' %}">Cambiar contraseña</a></p>
 {% endblock %}

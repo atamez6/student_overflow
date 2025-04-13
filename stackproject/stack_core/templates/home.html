@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Preguntas</h2>
+<a href="{% url 'preguntar' %}" class="btn btn-outline-primary mb-3">Nueva pregunta</a>
+{% for pregunta in preguntas %}
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5>{{ pregunta.titulo }}</h5>
+      <p>{{ pregunta.cuerpo|truncatewords:30 }}</p>
+      <a href="{% url 'responder' pregunta.id %}" class="btn btn-sm btn-secondary">Responder</a>
+    </div>
+  </div>
+{% endfor %}
+
+<div>
+  <nav>
+    <ul class="pagination">
+      {% if preguntas.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ preguntas.previous_page_number }}">Anterior</a></li>
+      {% endif %}
+      <li class="page-item active"><span class="page-link">{{ preguntas.number }}</span></li>
+      {% if preguntas.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ preguntas.next_page_number }}">Siguiente</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+{% endblock %}

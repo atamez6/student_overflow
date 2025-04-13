@@ -1,28 +1,43 @@
-# stack_users/views.py
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, RegisterForm
+from django.urls import reverse
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from .forms import LoginForm
+from django.contrib.auth.forms import AuthenticationForm
 
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('stack_core:lista_preguntas')
+            user = form.get_user()
+            login(request, user)
+            next_url = request.GET.get('next', 'home')
+            return redirect(next_url)
+        else:
+            print(form.errors)  # Verifica los errores
     else:
-        form = LoginForm()
+        form = AuthenticationForm()
+
     return render(request, 'registration/login.html', {'form': form})
+
 
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('stack_users:login')
+            return redirect('login')  # Redirige al login después de registro
     else:
         form = RegisterForm()
     return render(request, 'registration/register.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # Redirige al login después de logout
+
+def perfil_view(request):
+    return render(request, 'registration/perfil.html')  # Muestra perfil de usuario

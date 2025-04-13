@@ -1,10 +1,10 @@
 from django.urls import path
 from . import views
-app_name = 'stack_core'
+from django.contrib.auth.decorators import login_required
+
+
 urlpatterns = [
-    path('home/', views.home_view, name='home'),
-    path('about/', views.about, name='about'),
-    path('crear/', views.crear_pregunta, name='crear_pregunta'),
-    path('lista/', views.lista_preguntas, name='lista_preguntas'),
-    path('pregunta/<int:pregunta_id>/respuesta/', views.crear_respuesta, name='crear_respuesta'),
+    path('', login_required(views.home_view), name='home'),
+    path('preguntar/', views.crear_pregunta_view, name='preguntar'),
+    path('responder/<int:pregunta_id>/', views.responder_view, name='responder'),
 ]
