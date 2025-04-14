@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Preguntas</h2>
-<a href="{% url 'preguntar' %}" class="btn btn-outline-primary mb-3">Nueva pregunta</a>
+<h2>Discusiones y Preguntas</h2>
+<a href="{% url 'preguntar' %}" class="btn btn-outline-primary mb-3">Crear Publicación</a>
 {% for pregunta in preguntas %}
   <div class="card mb-2">
     <div class="card-body">
       <h5>{{ pregunta.titulo }}</h5>
       <p>{{ pregunta.cuerpo|truncatewords:30 }}</p>
-      <a href="{% url 'responder' pregunta.id %}" class="btn btn-sm btn-secondary">Responder</a>
+      <a href="{% url 'responder' pregunta.id %}" class="btn btn-sm btn-secondary">Participar</a>
     </div>
   </div>
 {% endfor %}
