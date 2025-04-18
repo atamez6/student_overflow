@@ -1,13 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="search-container">
+  <form action="{% url 'search' %}" method="GET">
+      <div class="input-group mb-3">
+          <input type="text" class="form-control" name="q" placeholder="Buscar en preguntas y comentarios...">
+          <button class="btn btn-primary" type="submit">Buscar</button>
+      </div>
+  </form>
+</div>
+
+
 <h2>Discusiones y Preguntas</h2>
 <a href="{% url 'preguntar' %}" class="btn btn-outline-primary mb-3">Crear Publicación</a>
 {% for pregunta in preguntas %}
+
   <div class="card mb-2">
     <div class="card-body">
       <h5>{{ pregunta.titulo }}</h5>
       <p>{{ pregunta.cuerpo|truncatewords:30 }}</p>
       <a href="{% url 'responder' pregunta.id %}" class="btn btn-sm btn-secondary">Participar</a>
+      
+      <a href="{% url 'delete_question' pregunta.id %}" class="btn btn-sm btn-danger" >
+          Eliminar pregunta
+      </a>
+
     </div>
   </div>
 {% endfor %}

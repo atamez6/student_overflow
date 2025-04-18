@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+<href class="nav-item">
+  <a href="{% url 'home' %}" class="btn btn-sm btn-primary">Home</a>
+</href>
+
 <h2>Nueva Pregunta</h2>
 <form method="post">{% csrf_token %}
   {{ form.as_p }}

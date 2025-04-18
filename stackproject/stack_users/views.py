@@ -41,3 +41,7 @@ def logout_view(request):
 
 def perfil_view(request):
     return render(request, 'registration/perfil.html')  # Muestra perfil de usuario
+
+
+def password_change(request):
+    return render(request, 'registration/password_change.html')  # Muestra perfil de usuario

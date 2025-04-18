@@ -1,0 +1,7 @@
+LOAD DATABASE
+     FROM mysql://root:@localhost/stack_overflow_db
+     INTO postgresql://postgres:atat@localhost/stack_pg_local
+
+ WITH include no drop, create tables, create indexes, reset sequences, data only
+
+ SET work_mem to '16MB', maintenance_work_mem to '512MB';
